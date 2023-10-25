@@ -25,7 +25,7 @@ const BASE_URL_POKELIST = 'https://pokelist-api.vercel.app'
 
 export const getPokemons = async (payload: GetPokemonsPayloadType) => {
     const res = await get(
-        `${BASE_URL_POKELIST}/pokemons?_limit=${payload.limit}&_start=${payload.offset}`
+        `${BASE_URL_POKELIST}/pokemons?_limit=${payload.limit}&_start=${payload.offset}${payload.search ? `&name_like=${payload.search}` : ''}`
     )
     const results = await res.json()
 

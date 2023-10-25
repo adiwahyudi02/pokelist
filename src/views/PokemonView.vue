@@ -45,7 +45,12 @@ const handleScroll = () => {
     }
 }
 
-const handleSearch = (value: string) => { }
+const handleSearch = (value: string) => {
+    searchPayloadReq.value = value
+    offsetPayloadReq.value = 0
+    pokemons.value = []
+    fetchPokemons()
+}
 
 onMounted(() => {
     fetchPokemons()
