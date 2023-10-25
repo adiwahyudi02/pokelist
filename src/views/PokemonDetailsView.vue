@@ -7,6 +7,8 @@ import { useRoute } from 'vue-router'
 import VueLoadImage from 'vue-load-image'
 import PokemonBaseStats from '@/components/pokemon/PokemonBaseStats.vue'
 import PokemonAbilities from '@/components/pokemon/PokemonAbilities.vue'
+import Loading from '@/components/commons/Loading.vue'
+import BackButton from '@/components/commons/BackButton.vue'
 
 const isLoading = ref(false)
 const pokemon = ref<GetPokemonResType>(null!)
@@ -36,6 +38,7 @@ onMounted(() => {
 </script>
 <template>
     <section>
+        <BackButton to="/" class="my-10">Back to list</BackButton>
         <Loading v-if="isLoading" class="absolute top-1/4 left-1/2 transform -translate-x-1/2 -translate-y-1/2" />
         <div v-else class="block md:grid md:grid-cols-2 md:gap-5">
             <div class="md:flex md:flex-col md:justify-between">
