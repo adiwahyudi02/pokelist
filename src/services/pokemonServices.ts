@@ -1,5 +1,6 @@
 import { get } from '@/utils/fetcher'
 import type {
+    GetPokemonResType,
     GetPokemonsPayloadType,
     GetPokemonsResType,
 } from '@/types/pokemonType'
@@ -22,6 +23,7 @@ import generatePokemonImageUrl from '@/utils/generatePokemonImageUrl'
  */
 
 const BASE_URL_POKELIST = 'https://pokelist-api.vercel.app'
+const BASE_URL = 'https://pokeapi.co/api/v2'
 
 export const getPokemons = async (payload: GetPokemonsPayloadType) => {
     const res = await get(
@@ -41,4 +43,13 @@ export const getPokemons = async (payload: GetPokemonsPayloadType) => {
     })
 
     return { results: formattedRes }
+}
+
+export const getPokemon = async (id: number) => {
+    const res = await get(`${BASE_URL}/pokemon/${id}`)
+    const data: GetPokemonResType = await res.json()
+
+    data.image = generatePokemonImageUrl(data.id)
+
+    return data
 }
