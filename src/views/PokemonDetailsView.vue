@@ -5,6 +5,7 @@ import type { GetPokemonResType } from '@/types/pokemonType'
 import { computed, onMounted, ref } from 'vue'
 import { useRoute } from 'vue-router'
 import VueLoadImage from 'vue-load-image'
+import PokemonBaseStats from '@/components/pokemon/PokemonBaseStats.vue'
 
 const isLoading = ref(false)
 const pokemon = ref<GetPokemonResType>(null!)
@@ -52,8 +53,8 @@ onMounted(() => {
                 </div>
                 <PokemonSummary :types="pokemonTypes" :height="pokemon?.height" :weight="pokemon?.weight" class="mt-8" />
             </div>
-            <div class="bg-gray-200">
-                <div>PokemonBaseStats</div>
+            <div>
+                <PokemonBaseStats :stats="pokemon?.stats" class="mt-8" />
                 <div>PokemonAbilities</div>
             </div>
         </div>
