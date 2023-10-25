@@ -15,6 +15,8 @@ const limitPayloadReq = 12
 const offsetPayloadReq = ref(0)
 const searchPayloadReq = ref('')
 
+const isDataOut = ref(false)
+
 const fetchPokemons = async () => {
     try {
         isLoading.value = true
@@ -25,6 +27,8 @@ const fetchPokemons = async () => {
         })
 
         pokemons.value = [...pokemons.value, ...pokemonRes]
+        if (!pokemonRes.length) isDataOut.value = true
+        else isDataOut.value = false
     } catch (e) {
         console.log(e)
     } finally {
@@ -40,7 +44,7 @@ const handleLoadMorePokemons = () => {
 const handleScroll = () => {
     let element = scrollComponent.value
 
-    if (element && element.getBoundingClientRect().bottom < window.innerHeight) {
+    if (element && element.getBoundingClientRect().bottom < window.innerHeight && !isDataOut.value) {
         handleLoadMorePokemons()
     }
 }
