@@ -6,6 +6,7 @@ import { computed, onMounted, ref } from 'vue'
 import { useRoute } from 'vue-router'
 import VueLoadImage from 'vue-load-image'
 import PokemonBaseStats from '@/components/pokemon/PokemonBaseStats.vue'
+import PokemonAbilities from '@/components/pokemon/PokemonAbilities.vue'
 
 const isLoading = ref(false)
 const pokemon = ref<GetPokemonResType>(null!)
@@ -55,7 +56,7 @@ onMounted(() => {
             </div>
             <div>
                 <PokemonBaseStats :stats="pokemon?.stats" class="mt-8" />
-                <div>PokemonAbilities</div>
+                <PokemonAbilities :abilities="pokemon?.abilities" class="mt-8" />
             </div>
         </div>
     </section>
