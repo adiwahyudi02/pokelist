@@ -8,3 +8,9 @@ export type GetPokemonsPayloadType = {
     offset: number
     search: string
 }
+
+export type PokemonType = {
+    id: number
+    name: string
+    image: string
+}
