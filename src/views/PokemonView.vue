@@ -7,6 +7,7 @@ import { getPokemons } from '@/services/pokemonServices'
 import type { PokemonType } from '@/types/pokemonType'
 import { useInfiniteScroll } from '@/composables/useInfiniteScroll'
 import { useRoute, useRouter } from 'vue-router'
+import { toast, type ToastOptions } from 'vue3-toastify'
 
 const isLoading = ref(false)
 const pokemons = ref<PokemonType[]>([])
@@ -35,7 +36,9 @@ const fetchPokemons = async () => {
         if (!pokemonRes.length) isDataOut.value = true
         else isDataOut.value = false
     } catch (e) {
-        console.log(e)
+        toast.error(String(e), {
+            position: toast.POSITION.BOTTOM_RIGHT,
+        } as ToastOptions)
     } finally {
         isLoading.value = false
     }
