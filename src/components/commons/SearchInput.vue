@@ -1,21 +1,27 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, watchEffect } from 'vue';
 
 type SearchPropsType = {
     placeholder?: string
     buttonText?: string
+    defaultValue?: string
 }
 
-withDefaults(defineProps<SearchPropsType>(), {
+const props = withDefaults(defineProps<SearchPropsType>(), {
     placeholder: 'Search',
     buttonText: 'Search'
 })
 
-defineEmits<{
+const emit = defineEmits<{
     (event: 'onSearch', search: string): void
 }>()
 
 const search = ref('')
+
+watchEffect(() => {
+    if (props.defaultValue) search.value = props.defaultValue
+})
+
 </script>
 
 <template>
