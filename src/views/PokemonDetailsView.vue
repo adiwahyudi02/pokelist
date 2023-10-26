@@ -9,6 +9,7 @@ import PokemonBaseStats from '@/components/pokemon/PokemonBaseStats.vue'
 import PokemonAbilities from '@/components/pokemon/PokemonAbilities.vue'
 import Loading from '@/components/commons/Loading.vue'
 import BackButton from '@/components/commons/BackButton.vue'
+import { toast, type ToastOptions } from 'vue3-toastify'
 
 const isLoading = ref(false)
 const pokemon = ref<GetPokemonResType>(null!)
@@ -21,7 +22,9 @@ const fetchPokemon = async () => {
         const data = await getPokemon(Number(params.id))
         pokemon.value = data
     } catch (e) {
-        console.log(e)
+        toast.error(String(e), {
+            position: toast.POSITION.BOTTOM_RIGHT,
+        } as ToastOptions)
     } finally {
         isLoading.value = false
     }
