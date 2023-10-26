@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { onMounted, onUnmounted, ref } from 'vue'
+import { onMounted, ref } from 'vue'
 import SearchInput from '@/components//commons/SearchInput.vue'
 import PokemonCard from '@/components/pokemon/PokemonCard.vue'
 import Loading from '@/components//commons/Loading.vue'
 import { getPokemons } from '@/services/pokemonServices'
 import type { PokemonType } from '@/types/pokemonType'
-
+import { useInfiniteScroll } from '@/composables/useInfiniteScroll'
 
 const isLoading = ref(false)
 const pokemons = ref<PokemonType[]>([])
@@ -37,17 +37,13 @@ const fetchPokemons = async () => {
 }
 
 const handleLoadMorePokemons = () => {
-    offsetPayloadReq.value = offsetPayloadReq.value + limitPayloadReq
-    fetchPokemons()
-}
-
-const handleScroll = () => {
-    let element = scrollComponent.value
-
-    if (element && element.getBoundingClientRect().bottom < window.innerHeight && !isDataOut.value) {
-        handleLoadMorePokemons()
+    if (!isDataOut.value) {
+        offsetPayloadReq.value = offsetPayloadReq.value + limitPayloadReq
+        fetchPokemons()
     }
 }
+
+useInfiniteScroll(scrollComponent, handleLoadMorePokemons)
 
 const handleSearch = (value: string) => {
     searchPayloadReq.value = value
@@ -58,14 +54,6 @@ const handleSearch = (value: string) => {
 
 onMounted(() => {
     fetchPokemons()
-})
-
-onMounted(() => {
-    window.addEventListener("scroll", handleScroll)
-})
-
-onUnmounted(() => {
-    window.removeEventListener("scroll", handleScroll)
 })
 
 </script>
