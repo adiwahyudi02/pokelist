@@ -38,7 +38,7 @@ onMounted(() => {
 </script>
 <template>
     <section>
-        <BackButton to="/" class="my-10">Back to list</BackButton>
+        <BackButton @on-back="$router.go(-1)" class="my-10">Back to list</BackButton>
         <Loading v-if="isLoading" class="absolute top-1/4 left-1/2 transform -translate-x-1/2 -translate-y-1/2" />
         <div v-else class="block md:grid md:grid-cols-2 md:gap-5">
             <div class="md:flex md:flex-col md:justify-between">
