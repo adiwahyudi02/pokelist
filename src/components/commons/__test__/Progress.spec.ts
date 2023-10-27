@@ -4,7 +4,11 @@ import Progress from '../Progress.vue'
 
 describe('Progress', () => {
     it('renders properly', () => {
-        const wrapper = mount(Progress)
+        const wrapper = mount(Progress, {
+            propsData: {
+                percent: '45'
+            }
+        })
         const capacity = wrapper.find('#capacity-progress')
         const value = wrapper.find('#value-progress')
 
